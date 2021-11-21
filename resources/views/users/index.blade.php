@@ -68,7 +68,11 @@
                     <p>{{ $product->product_disponibilite }}</p>
                     <p class="product_price">{{$product->product_price}} FCFA</p>
                     @auth
-                    <a href="#" class="addtocart"></a>
+                    <form method="POST" action="{{ route('user.ajoutPanier', $product->id) }}">
+                        @csrf
+                        <button style="border: none;" class="addtocart"></button>
+                        {{-- <a href="{{ route('user.ajoutPanier', $product->id) }}" class="addtocart"></a> --}}
+                    </form>
                     @endauth
                     @guest
                     <a href="{{ route('user.login') }}" class="addtocart"></a>

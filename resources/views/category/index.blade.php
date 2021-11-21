@@ -7,7 +7,6 @@
 
 	<div id="templatemo_header">
     	<div id="site_title"><h1><a href="#">Online Shoes Store</a></h1></div>
-        @include('layout.header_right')
         <div class="cleaner"></div>
     </div> <!-- END of templatemo_header -->
 

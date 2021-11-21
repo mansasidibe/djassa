@@ -7,7 +7,6 @@
 
 	<div id="templatemo_header">
     	<div id="site_title"><h1><a href="#">Online Shoes Store</a></h1></div>
-        @include('layout.header_right')
         <div class="cleaner"></div>
     </div> <!-- END of templatemo_header -->
 
@@ -89,7 +88,7 @@
 
             <div class="content_half float_r">
                 <h5>Dimension de la photo</h5>
-                1200 X 1000 <br />
+                200 X 150 <br />
                 <br />
 
             </div>

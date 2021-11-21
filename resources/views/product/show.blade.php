@@ -70,7 +70,11 @@
                 <div class="cleaner h20"></div>
 
                 @auth
-                    <a href="#" class="addtocart"></a>
+                <form method="POST" action="{{ route('user.ajoutPanier', $id->id) }}">
+                    @csrf
+                    <button style="border: none;" class="addtocart"></button>
+                    {{-- <a href="{{ route('user.ajoutPanier', $product->id) }}" class="addtocart"></a> --}}
+                </form>
                 @endauth
                 @guest
                 <a href="{{ route('user.login') }}" class="addtocart"></a>

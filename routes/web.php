@@ -19,6 +19,11 @@ Route::post('/contact',[Controller::class, 'envoieMessage'])->name('user.envoieM
 Route::get('/panier',[Controller::class, 'panier'])->name('user.panier');
 Route::post('/panier',[Controller::class, 'envoiePanier'])->name('user.envoiePanier');
 
+// Cart
+Route::post('/add_panier/{id}',[Controller::class, 'addPanier'])->name('user.ajoutPanier');
+Route::get('/remove_panier/{id}',[Controller::class, 'removePanier'])->name('user.supprimePanier');
+
+
 // ROUTE AUTHENTIFICATION
 Route::get('/login',[Controller::class, 'login'])->name('user.login');
 Route::post('/dologin',[Controller::class, 'doLogin'])->name('user.doLogin');

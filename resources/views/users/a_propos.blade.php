@@ -41,7 +41,6 @@
         <div id="content" class="float_r">
         	<h1>A Propos</h1>
         	<h2>La Société</h2>
-        <p>Validate <a href="http://validator.w3.org/check?uri=referer" rel="nofollow">XHTML</a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer" rel="nofollow">CSS</a>. Donec sapien. Nam ac nunc. Aliquam fermentum cursus risus. Aliquam erat volutpat. Morbi a augue eget orci sodales blandit. Morbi et mi in mi eleifend adipiscing. Nullam id quam a ligula semper feugiat. Sed ultricies. Nulla et pede eu pede ultrices commodo. Nulla semper accumsan pede. Donec ut quam. Quisque egestas felis in diam.</p>
         <ul class="tmo_list">
         	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
             <li>Pellentesque quis nulla id orci malesuada porta posuere quis massa.</li>

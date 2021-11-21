@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Panier;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,9 +21,17 @@ class Controller extends BaseController
     public function index()
     {
         $title = "ACCEUIL";
-        $products = Product::all()->random(4);
+        $count = "";
+        $products = Product::all();
         $categories = Category::get();
-        return view('users.index', compact('title','products','categories'));
+        if(Auth::user()){
+            $users = Auth::user();
+            $panier = Panier::where('number', $users->number)->get();
+            $count = Panier::where('number', $users->number)->count();
+            return view('users.index', compact('title','products','categories','panier','count'));
+        }else {
+            return view('users.index', compact('title','products','categories', 'count'));
+        }
     }
 
     public function a_propos()
@@ -30,7 +39,15 @@ class Controller extends BaseController
         $title = "A PROPOS";
         $products = Product::get();
         $categories = Category::get();
-        return view('users.a_propos', compact('title','products','categories'));
+        $count = "";
+        if(Auth::user()){
+            $users = Auth::user();
+            $panier = Panier::where('number', $users->number)->get();
+            $count = Panier::where('number', $users->number)->count();
+            return view('users.a_propos', compact('title','products','categories', 'users', 'panier', 'count'));
+        }else {
+            return view('users.a_propos', compact('title','products','categories'));
+        }
     }
 
     public function faq()
@@ -38,7 +55,15 @@ class Controller extends BaseController
         $title = "FAQ";
         $products = Product::get();
         $categories = Category::get();
-        return view('users.faq', compact('title','products','categories'));
+        $count = "";
+        if(Auth::user()){
+            $users = Auth::user();
+            $panier = Panier::where('number', $users->number)->get();
+            $count = Panier::where('number', $users->number)->count();
+            return view('users.faq', compact('title','products','categories', 'users', 'panier', 'count'));
+        }else {
+            return view('users.faq', compact('title','products','categories'));
+        }
     }
 
     public function contact()
@@ -46,7 +71,15 @@ class Controller extends BaseController
         $title = "CONTACT";
         $products = Product::get();
         $categories = Category::get();
-        return view('users.contact', compact('title','products','categories'));
+        $count = "";
+        if(Auth::user()){
+            $users = Auth::user();
+            $panier = Panier::where('number', $users->number)->get();
+            $count = Panier::where('number', $users->number)->count();
+            return view('users.contact', compact('title','products','categories', 'users', 'panier', 'count'));
+        }else {
+            return view('users.contact', compact('title','products','categories'));
+        }
     }
 
     public function envoieMessage(Request $request)
@@ -56,10 +89,17 @@ class Controller extends BaseController
 
     public function panier()
     {
+        if(Auth::user()->id)
+        {
+        $users = Auth::user();
         $title = "PANIER";
         $products = Product::get();
         $categories = Category::get();
-        return view('cart.index', compact('title','products','categories'));
+        $panier = Panier::where('number', $users->number)->get();
+        $count = Panier::where('number', $users->number)->count();
+        return view('cart.index', compact('title','products','categories', 'panier', 'count'));
+        }
+
     }
 
     public function envoiePanier(Request $request)
@@ -67,12 +107,49 @@ class Controller extends BaseController
         // PANIER
     }
 
+    public function addPanier(Request $request, $id)
+    {
+        if(Auth::id())
+        {
+            $users = Auth::user();
+            $produit = Product::find($id);
+            $panier = Panier::create([
+                'product_name' => $produit->product_name,
+                'product_description' => $produit->product_description,
+                'product_price' => $produit->product_price,
+                'product_remise' => $produit->product_remise,
+                'product_disponibilite' => $produit->product_disponibilite,
+                'categorie' => $produit->categorie,
+                'product_photo' => $produit->product_photo,
+                'number' => $users->number,
+            ]);
+
+            return redirect()->back()->with('message', 'Produit ajouté avec succès');
+        }else {
+            return redirect()->route('user.login')->with('message', "Connectez vous s'il vous plait");
+        }
+    }
+
+    public function removePanier(Panier $id)
+    {
+        $id->delete();
+        return redirect()->back()->with('message', 'Produit supprimé du panier');
+    }
+
     public function login()
     {
         $title = "CONNEXION";
         $products = Product::get();
         $categories = Category::get();
-        return view('auth.login', compact('title','products','categories'));
+        $count = "";
+        if(Auth::user()){
+            $users = Auth::user();
+            $panier = Panier::where('number', $users->number)->get();
+            $count = Panier::where('number', $users->number)->count();
+            return view('auth.login', compact('title','products','categories', 'users', 'panier', 'count'));
+        }else {
+            return view('auth.login', compact('title','products','categories'));
+        }
     }
 
     public function doLogin(Request $request)
@@ -101,7 +178,15 @@ class Controller extends BaseController
         $title = "INSCRIPTION";
         $products = Product::get();
         $categories = Category::get();
-        return view('auth.register', compact('title','products','categories'));
+        $count = "";
+        if(Auth::user()){
+            $users = Auth::user();
+            $panier = Panier::where('number', $users->number)->get();
+            $count = Panier::where('number', $users->number)->count();
+            return view('auth.register', compact('title','products','categories', 'users', 'panier', 'count'));
+        }else {
+            return view('auth.register', compact('title','products','categories'));
+        }
     }
 
     public function doRegister(Request $request)
