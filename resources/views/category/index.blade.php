@@ -39,7 +39,7 @@
             <div class="content_half float_l">
                 @if (Session('message'))
                 <p style="color:green;">{{ session('message') }}</p>
-            @endif
+                 @endif
                 <table width="680px" cellspacing="0" cellpadding="5">
                     <tr bgcolor="#ddd">
                        <th width="180" align="left">Libélé </th>

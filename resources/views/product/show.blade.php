@@ -62,10 +62,7 @@
                         <td>Votre pointure</td>
                         <td><input type="text"  style="width: 20px; text-align: right" /></td>
                     </tr>
-                    <tr>
-                    	<td>Quantité</td>
-                        <td><input type="text" value="1" style="width: 20px; text-align: right" /></td>
-                    </tr>
+
                 </table>
                 <div class="cleaner h20"></div>
 

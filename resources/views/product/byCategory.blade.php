@@ -40,6 +40,9 @@
     <div id="templatemo_main">
     	@include('layout.siderbar')
         <div id="content" class="float_r">
+            @if (Session('message'))
+                <p style="color:green;">{{ session('message') }}</p>
+                 @endif
         	<h1> Recherche de produit</h1>
             @if ($products->count())
                 @foreach ($products as $product)

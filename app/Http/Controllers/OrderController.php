@@ -17,6 +17,11 @@ class OrderController extends Controller
         //
     }
 
+    public function commande(Request $request)
+    {
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

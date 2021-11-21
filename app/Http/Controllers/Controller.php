@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Panier;
 use App\Models\Product;
@@ -13,6 +14,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+
 
 class Controller extends BaseController
 {
@@ -89,6 +92,16 @@ class Controller extends BaseController
 
     public function panier()
     {
+        // if(!Session::has('panier')){
+
+        // }
+        // $title = "PANIER";
+        // $products = Product::get();
+        // $categories = Category::get();
+        // $oldCart = Session::get('panier');
+        // $panier = new Panier();
+        // return view('cart.index', compact('title','products','categories', 'panier', 'oldCart'));
+
         if(Auth::user()->id)
         {
         $users = Auth::user();
@@ -104,6 +117,20 @@ class Controller extends BaseController
 
     public function envoiePanier(Request $request)
     {
+        $donnee = $this->validate($request, [
+            'product_name' => '',
+            'product_description' => '',
+            'product_price' => '',
+            'product_remise' => '',
+            'product_disponibilite' => '',
+            'categorie' => '',
+            'product_photo' => '',
+            'prix_total' => '',
+            'client_name' => '',
+            'client_numero' => '',
+            'client_adresse' => '',
+        ]);
+        dd($donnee);
         // PANIER
     }
 
@@ -124,11 +151,23 @@ class Controller extends BaseController
                 'number' => $users->number,
             ]);
 
-            return redirect()->back()->with('message', 'Produit ajouté avec succès');
+            return redirect()->route('user.panier')->with('message', 'Produit ajouté avec succès');
         }else {
             return redirect()->route('user.login')->with('message', "Connectez vous s'il vous plait");
         }
     }
+
+    // public function addPanier(Request $request, $id)
+    // {
+    //     $produit = Product::find($id);
+    //     $oldCart = Session::has('panier') ? Session::get('panier') : null;
+    //     $cart = new Cart($oldCart);
+    //     $cart->add($produit, $produit->id);
+
+    //     $request->session()->put('panier', $cart);
+    //     // dd($request->session()->get('panier'));
+    //     return redirect()->route('user.panier')->with('message', 'Produit ajouté avec succès');
+    // }
 
     public function removePanier(Panier $id)
     {

@@ -19,6 +19,10 @@ Route::post('/contact',[Controller::class, 'envoieMessage'])->name('user.envoieM
 Route::get('/panier',[Controller::class, 'panier'])->name('user.panier');
 Route::post('/panier',[Controller::class, 'envoiePanier'])->name('user.envoiePanier');
 
+
+Route::get('/commande',[OrderController::class, 'commande'])->name('user.commande');
+
+
 // Cart
 Route::post('/add_panier/{id}',[Controller::class, 'addPanier'])->name('user.ajoutPanier');
 Route::get('/remove_panier/{id}',[Controller::class, 'removePanier'])->name('user.supprimePanier');

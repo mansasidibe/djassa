@@ -43,6 +43,9 @@
             @if (Session('message'))
             <p style="color:green;">{{ session('message') }}</p>
         @endif
+                @if (Session('message'))
+                <p style="color:green;">{{ session('message') }}</p>
+                 @endif
         	<h1> Produits</h1>
             @if ($products->count())
                 @foreach ($products as $product)

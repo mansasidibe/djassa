@@ -58,6 +58,9 @@
                 $('#slider').nivoSlider();
             });
             </script>
+            @if (Session('message'))
+            <p style="color:green;">{{ session('message') }}</p>
+             @endif
         	<h1>Nouveaux Produits</h1>
 
             @if ($products->count())

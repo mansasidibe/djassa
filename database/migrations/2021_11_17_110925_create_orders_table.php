@@ -20,12 +20,13 @@ class CreateOrdersTable extends Migration
             $table->integer('product_price');
             $table->integer('product_remise')->default(0);
             $table->string('product_disponibilite');
-            $table->integer('product_quantite');
             $table->string('category');
-            $table->string('user_name');
-            $table->string('user_email');
-            $table->integer('user_number');
-            $table->string('product_photo')->nullable();
+            $table->string('product_photo');
+            $table->string('proprietaire');
+            $table->integer('num_proprietaire');
+            $table->string('client_name');
+            $table->integer('client_numero');
+            $table->string('client_adresse');
             $table->timestamps();
         });
     }
