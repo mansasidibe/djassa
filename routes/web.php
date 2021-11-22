@@ -17,16 +17,16 @@ Route::get('/contact',[Controller::class, 'contact'])->name('user.contact');
 Route::post('/contact',[Controller::class, 'envoieMessage'])->name('user.envoieMessage');
 
 Route::get('/panier',[Controller::class, 'panier'])->name('user.panier')->middleware('auth');
-Route::post('/panier',[Controller::class, 'envoiePanier'])->name('user.envoiePanier');
+Route::post('/panier',[Controller::class, 'envoiePanier'])->name('user.envoiePanier')->middleware('auth');
 
 
 Route::get('/commande',[OrderController::class, 'commande'])->name('user.commande');
-Route::get('/suggestion',[OrderController::class, 'suggestion'])->name('user.suggestion');
-Route::post('/suggestion',[OrderController::class, 'send_suggestion'])->name('user.send_suggestion');
+Route::get('/suggestion',[OrderController::class, 'suggestion'])->name('user.suggestion')->middleware('auth');
+Route::post('/suggestion',[OrderController::class, 'send_suggestion'])->name('user.send_suggestion')->middleware('auth');
 
 // Cart
-Route::post('/add_panier/{id}',[Controller::class, 'addPanier'])->name('user.ajoutPanier');
-Route::get('/remove_panier/{id}',[Controller::class, 'removePanier'])->name('user.supprimePanier');
+Route::post('/add_panier/{id}',[Controller::class, 'addPanier'])->name('user.ajoutPanier')->middleware('auth');
+Route::get('/remove_panier/{id}',[Controller::class, 'removePanier'])->name('user.supprimePanier')->middleware('auth');
 
 
 // ROUTE AUTHENTIFICATION
@@ -34,7 +34,7 @@ Route::get('/login',[Controller::class, 'login'])->name('user.login');
 Route::post('/dologin',[Controller::class, 'doLogin'])->name('user.doLogin');
 Route::get('/register',[Controller::class, 'register'])->name('user.register');
 Route::post('/doregister',[Controller::class, 'doRegister'])->name('user.doRegister');
-Route::get('/logout',[Controller::class, 'logout'])->name('user.logout');
+Route::get('/logout',[Controller::class, 'logout'])->name('user.logout')->middleware('auth');
 
 // ROUTE CATEGORIE
 Route::get('/category',[CategoryController::class, 'index'])->name('category.index');
@@ -69,17 +69,17 @@ Route::delete('/message/{message}',[MessageController::class, 'destroy'])->name(
 
 // ROUTE ADMIN CATEGORIE
 Route::get('/admin',[AdminController::class, 'index'])->name('admin.index')->middleware('is_admin');
-Route::get('/admin/category/index',[AdminController::class, 'index_category'])->name('admin.category.index');
-Route::get('/admin/category/create',[AdminController::class, 'create_category'])->name('category.create');
-Route::post('/admin/category',[AdminController::class, 'store_category'])->name('category.store');
-Route::get('/admin/category/{id}/edit',[AdminController::class, 'edit_category'])->name('category.edit');
-Route::patch('/admin/category/{id}',[AdminController::class, 'update_category'])->name('category.update');
-Route::get('/admin/category/{id}',[AdminController::class, 'destroy_category'])->name('category.destroy');
+Route::get('/admin/category/index',[AdminController::class, 'index_category'])->name('admin.category.index')->middleware('is_admin');
+Route::get('/admin/category/create',[AdminController::class, 'create_category'])->name('category.create')->middleware('is_admin');
+Route::post('/admin/category',[AdminController::class, 'store_category'])->name('category.store')->middleware('is_admin');
+Route::get('/admin/category/{id}/edit',[AdminController::class, 'edit_category'])->name('category.edit')->middleware('is_admin');
+Route::patch('/admin/category/{id}',[AdminController::class, 'update_category'])->name('category.update')->middleware('is_admin');
+Route::get('/admin/category/{id}',[AdminController::class, 'destroy_category'])->name('category.destroy')->middleware('is_admin');
 
 // ROUTE ADMIN PRODUIT
-Route::get('/admin/produit/index',[AdminController::class, 'index_product'])->name('admin.product.index');
-Route::get('/admin/product/create',[AdminController::class, 'create_product'])->name('product.create');
-Route::post('/admin/product',[AdminController::class, 'store_product'])->name('product.store');
-Route::get('/admin/product/{id}/edit',[AdminController::class, 'edit_product'])->name('product.edit');
-Route::patch('/admin/product/{id}',[AdminController::class, 'update_product'])->name('product.update');
-Route::get('/admin/product/{id}',[AdminController::class, 'destroy_product'])->name('product.destroy');
+Route::get('/admin/produit/index',[AdminController::class, 'index_product'])->name('admin.product.index')->middleware('is_admin');
+Route::get('/admin/product/create',[AdminController::class, 'create_product'])->name('product.create')->middleware('is_admin');
+Route::post('/admin/product',[AdminController::class, 'store_product'])->name('product.store')->middleware('is_admin');
+Route::get('/admin/product/{id}/edit',[AdminController::class, 'edit_product'])->name('product.edit')->middleware('is_admin');
+Route::patch('/admin/product/{id}',[AdminController::class, 'update_product'])->name('product.update')->middleware('is_admin');
+Route::get('/admin/product/{id}',[AdminController::class, 'destroy_product'])->name('product.destroy')->middleware('is_admin');

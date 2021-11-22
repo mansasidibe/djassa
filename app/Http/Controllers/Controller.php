@@ -144,7 +144,7 @@ class Controller extends BaseController
             $order->product_price = $request->product_price[$key];
             $order->product_remise = $request->product_remise[$key];
             $order->product_disponibilite = $request->product_disponibilite[$key];
-            $order->category = $request->categorie[$key];
+            $order->category = $request->category[$key];
             $order->product_photo = $request->product_photo[$key];
             $order->prix_total = $request->prix_total;
             $order->client_name = $request->client_name;
