@@ -15,11 +15,12 @@ class Order extends Model
         'product_price',
         'product_remise',
         'product_disponibilite',
-        'categorie',
+        'category',
         'product_photo',
         'prix_total',
         'client_name',
         'client_numero',
         'client_adresse',
+
     ];
 }

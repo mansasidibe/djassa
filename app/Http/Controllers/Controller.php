@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Panier;
 use App\Models\Product;
 use App\Models\User;
@@ -13,6 +14,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -117,21 +119,44 @@ class Controller extends BaseController
 
     public function envoiePanier(Request $request)
     {
-        $donnee = $this->validate($request, [
-            'product_name' => '',
-            'product_description' => '',
-            'product_price' => '',
-            'product_remise' => '',
-            'product_disponibilite' => '',
-            'categorie' => '',
-            'product_photo' => '',
-            'prix_total' => '',
-            'client_name' => '',
-            'client_numero' => '',
-            'client_adresse' => '',
-        ]);
-        dd($donnee);
-        // PANIER
+        // $donnee = $this->validate($request, [
+        //     'product_name' => '',
+        //     'product_description' => '',
+        //     'product_price' => '',
+        //     'product_remise' => '',
+        //     'product_disponibilite' => '',
+        //     'categorie' => '',
+        //     'product_photo' => '',
+        //     'prix_total' => '',
+        //     'client_name' => '',
+        //     'client_numero' => '',
+        //     'client_adresse' => '',
+        //     'adresse_livraison' => '',
+        // ]);
+
+        $user = Auth::user();
+        $phone = $user->number;
+
+        foreach ($request->product_photo as $key => $productname){
+            $order = new Order;
+            $order->product_name = $request->product_name[$key];
+            $order->product_description = $request->product_description[$key];
+            $order->product_price = $request->product_price[$key];
+            $order->product_remise = $request->product_remise[$key];
+            $order->product_disponibilite = $request->product_disponibilite[$key];
+            $order->category = $request->categorie[$key];
+            $order->product_photo = $request->product_photo[$key];
+            $order->prix_total = $request->prix_total;
+            $order->client_name = $request->client_name;
+            $order->client_numero = $request->client_numero;
+            $order->client_adresse = $request->client_adresse;
+
+            $order->save();
+        }
+
+        DB::table('paniers')->where('number', $phone)->delete();
+
+        return redirect()->route('user.suggestion')->with('message', 'commande validée');
     }
 
     public function addPanier(Request $request, $id)

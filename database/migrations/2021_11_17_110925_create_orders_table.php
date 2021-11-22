@@ -22,8 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('product_disponibilite');
             $table->string('category');
             $table->string('product_photo');
-            $table->string('proprietaire');
-            $table->integer('num_proprietaire');
+            $table->string('prix_total');
             $table->string('client_name');
             $table->integer('client_numero');
             $table->string('client_adresse');

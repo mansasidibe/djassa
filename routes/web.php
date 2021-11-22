@@ -16,12 +16,13 @@ Route::get('/faq',[Controller::class, 'faq'])->name('user.faq');
 Route::get('/contact',[Controller::class, 'contact'])->name('user.contact');
 Route::post('/contact',[Controller::class, 'envoieMessage'])->name('user.envoieMessage');
 
-Route::get('/panier',[Controller::class, 'panier'])->name('user.panier');
+Route::get('/panier',[Controller::class, 'panier'])->name('user.panier')->middleware('auth');
 Route::post('/panier',[Controller::class, 'envoiePanier'])->name('user.envoiePanier');
 
 
 Route::get('/commande',[OrderController::class, 'commande'])->name('user.commande');
-
+Route::get('/suggestion',[OrderController::class, 'suggestion'])->name('user.suggestion');
+Route::post('/suggestion',[OrderController::class, 'send_suggestion'])->name('user.send_suggestion');
 
 // Cart
 Route::post('/add_panier/{id}',[Controller::class, 'addPanier'])->name('user.ajoutPanier');

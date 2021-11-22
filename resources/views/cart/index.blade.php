@@ -61,35 +61,36 @@
              @foreach ($panier as $commande)
                 <tr>
                     <td><img src="storage/{{ $commande->product_photo }}" alt="image 1" /></td>
-                    <input type="hidden" name="product_photo" value="{{ $commande->product_photo }}">
+                    <input type="hidden" name="product_photo[]" value="{{ $commande->product_photo }}">
                     <td>{{ $commande->product_name }}</td>
-                    <input type="hidden" name="product_name" value="{{ $commande->product_name }}">
+                    <input type="hidden" name="product_name[]" value="{{ $commande->product_name }}">
                     <td align="center"><input type="text" value="1" style="width: 20px; text-align: right" /> </td>
                     <td align="right">{{ $commande->product_price }}</td>
                     <td align="right">{{ $commande->categorie }} </td>
                     <td align="center"> <a href="{{ route('user.supprimePanier', $commande->id) }}"><img src="images/remove_x.gif" alt="remove" /><br />Remove</a> </td>
-                    <input type="hidden" name="categorie" value="{{ $commande->categorie }}">
-                    <input type="hidden" name="product_price" value="{{ $commande->product_price }}">
-                    <input type="hidden" name="product_description" value="{{ $commande->product_description }}">
-                    <input type="hidden" name="product_remise" value="{{ $commande->product_remise }}">
-                    <input type="hidden" name="product_disponibilite" value="{{ $commande->product_disponibilite }}">
+                    <input type="hidden" name="category[]" value="{{ $commande->categorie }}">
+                    <input type="hidden" name="product_price[]" value="{{ $commande->product_price }}">
+                    <input type="hidden" name="product_description[]" value="{{ $commande->product_description }}">
+                    <input type="hidden" name="product_remise[]" value="{{ $commande->product_remise }}">
+                    <input type="hidden" name="product_disponibilite[]" value="{{ $commande->product_disponibilite }}">
                     <input type="hidden" name="client_name" value="{{ auth()->user()->name }}">
                     <input type="hidden" name="client_numero" value="{{ auth()->user()->number }}">
                 </tr>
                 @php  $total += $commande->product_price ;  @endphp
              @endforeach
                <tr>
-                   <td colspan="3" align="right"  height="30px"></td>
-                   <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
-                   <td align="right" style="background:#ddd; font-weight:bold"> {{ $total }} FCFA</td>
+                   <td colspan="3" > <label for="text">Adresse de livraison:</label> <textarea id="text" class="validate-email required input_field" name="client_adresse" ></textarea></td>
+                   <td align="right" style="background:#ddd; font-weight:bold"> Total: </td>
+                   <td align="right" style="background:#ddd; font-weight:bold"> {{ $total }} </td>
                    <input type="hidden" name="prix_total" value="{{ $total }}">
-                   <td style="background:#ddd; font-weight:bold"> </td>
+                   <td style="background:#ddd; font-weight:bold"> FCFA </td>
                </tr>
 
         </table>
             @else
                 <p>Votre panier est vide</p>
             @endif
+
                     <div style="float:right; width: 215px; margin-top: 20px;">
                         <button style="background: none; border:none; color:blue;">Valider les commandes</button>
                     </div>

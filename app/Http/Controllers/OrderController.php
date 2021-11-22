@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Order;
+use App\Models\Panier;
+use App\Models\Suggestion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -17,9 +21,27 @@ class OrderController extends Controller
         //
     }
 
-    public function commande(Request $request)
+    public function suggestion()
     {
+        $title = "SUGGESTIONS";
+        $categories = Category::get();
+        $users = Auth::user();
+        $count = Panier::where('number', $users->number)->count();
+        return view('cart.suggestion', compact('title', 'count', 'categories'));
+    }
 
+    public function send_suggestion(Request $request)
+    {
+        $donnee = $request->validate([
+            'nom_envoyeur' => 'required',
+            'email_envoyeur' => '',
+            'numero' => '',
+            'corps' => 'required',
+        ]);
+
+        Suggestion::create($donnee);
+
+        return redirect()->route('user.index')->with('message', $request->nom_envoyeur.', votre message a bien été envoyé!');
     }
 
     /**

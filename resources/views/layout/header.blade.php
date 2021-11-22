@@ -49,6 +49,7 @@ ddsmoothmenu.init({
 @yield('container.admin.index')
 @yield('container.user.bycategory')
 @yield('container.user.commande')
+@yield('container.user.suggestion')
 
 
 </body>
