@@ -20,6 +20,15 @@
     </div>
 
     <div class="sidebar_box"><span class="bottom"></span>
+        <h3>Commande</h3>
+        <div class="content">
+            <ul class="sidebar_list">
+                <li><a href="{{ route('order.index') }}">Toutes les commandes</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="sidebar_box"><span class="bottom"></span>
         <h3>Parametrer le site</h3>
         <div class="content">
             <ul class="sidebar_list">

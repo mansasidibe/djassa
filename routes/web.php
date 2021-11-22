@@ -20,9 +20,6 @@ Route::get('/panier',[Controller::class, 'panier'])->name('user.panier')->middle
 Route::post('/panier',[Controller::class, 'envoiePanier'])->name('user.envoiePanier')->middleware('auth');
 
 
-Route::get('/commande',[OrderController::class, 'commande'])->name('user.commande');
-Route::get('/suggestion',[OrderController::class, 'suggestion'])->name('user.suggestion')->middleware('auth');
-Route::post('/suggestion',[OrderController::class, 'send_suggestion'])->name('user.send_suggestion')->middleware('auth');
 
 // Cart
 Route::post('/add_panier/{id}',[Controller::class, 'addPanier'])->name('user.ajoutPanier')->middleware('auth');
@@ -50,12 +47,10 @@ Route::get('/product/{id}',[ProductController::class, 'show'])->name('product.sh
 
 // ROUTE MESSAGE
 Route::get('/order',[OrderController::class, 'index'])->name('order.index');
-Route::get('/order/create',[OrderController::class, 'create'])->name('order.create');
-Route::post('/order',[OrderController::class, 'store'])->name('order.store');
-Route::get('/order/{order}',[OrderController::class, 'show'])->name('order.show');
-Route::get('/order/{order}/edit',[OrderController::class, 'edit'])->name('order.edit');
-Route::patch('/order/{order}',[OrderController::class, 'update'])->name('order.update');
-Route::delete('/order/{order}',[OrderController::class, 'destroy'])->name('order.destroy');
+Route::get('/commande',[OrderController::class, 'commande'])->name('user.commande');
+Route::get('/suggestion',[OrderController::class, 'suggestion'])->name('user.suggestion')->middleware('auth');
+Route::post('/suggestion',[OrderController::class, 'send_suggestion'])->name('user.send_suggestion')->middleware('auth');
+Route::get('/order/{id}',[OrderController::class, 'destroy'])->name('order.destroy');
 
 // ROUTE MESSAGE
 Route::get('/message',[MessageController::class, 'index'])->name('message.index');
